@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef ,useState} from 'react';
 import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from "@gsap/react";
@@ -6,12 +6,16 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+  const [xcord,setXcord]=useState(0);
+  const [ycord,setYcord]=useState(0);
+
   const box1=useRef();
   const box2=useRef();
   const box3=useRef();
   const page2=useRef();
   const box4=useRef();
   const page3=useRef();
+  const cursor=useRef();
   useGSAP(()=>{
     gsap.from(".heading",{
       opacity:0,
@@ -56,7 +60,6 @@ const App = () => {
         scroller:"body",
         scrub:2,
         start:"top 60%",
-        markers:true,
       }
     })
     gsap.from(box4.current,{
@@ -68,7 +71,6 @@ const App = () => {
         scroller:"body",
         scrub:2,
         start:"top 70%",
-        markers:true,
       }
     })
     gsap.to(page3.current,{
@@ -80,9 +82,18 @@ const App = () => {
           pin:true,
         }
     })
+    document.addEventListener("mousemove",(event)=>{
+      gsap.to(cursor.current,{
+        x:event.clientX,
+        y:event.clientY,
+        ease:"bounce.out"
+      })
+    })
   })
   return (
     <div className='overflow-x-hidden bg-black'>
+    <div ref={cursor} className='h-[2em] w-[2em] rounded-3xl bg-white fixed z-10'>
+    </div>
       <div className='w-[100vw] h-[100vh]'>
         <div className='flex items-center justify-center font-bold'><h1 className='text-white text-[10em] whitespace-nowrap heading'>GSAP-INTRO</h1></div>
         <div ref={box1} className='h-[10em] w-[10em] bg-red-500'>
