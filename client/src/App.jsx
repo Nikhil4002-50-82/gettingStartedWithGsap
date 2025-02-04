@@ -20,10 +20,10 @@ const App = () => {
     gsap.from(".heading",{
       opacity:0,
       y:-200,
-      duration:2,
-      repeat:2,
+      duration:3,
+      delay:1,
+      repeat:-1,
       yoyo:true,
-      delay:0,
       ease:"bounce.out"
     })
     gsap.to(box1.current,{
